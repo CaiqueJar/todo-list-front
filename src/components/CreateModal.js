@@ -9,21 +9,24 @@ import api from '../api';
 function CreateModal() {
   const [show, setShow] = useState(false);
   const [name, setName] = useState();
+  const [hour, setHour] = useState();
   const [date, setDate] = useState();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleName = (e) => setName(e.target.value);
+  const handleHour = (e) => setHour(e.target.value);
   const handleDate = (e) => setDate(e.target.value);
+  
 
   const handleSubmit=(e)=> {
     e.preventDefault()
 
     const data = {
       name: name,
-      hour: date,
-      task_status: 1
+      hour: hour,
+      date: date,
     }
 
     api.post('http://localhost:8080/api/v1/task', data);
@@ -45,6 +48,9 @@ function CreateModal() {
               <Row>
                 <Col>
                   <Form.Control placeholder="Task name" onChange={handleName} />
+                </Col>
+                <Col>
+                  <Form.Control type="time" placeholder="Task hour" onChange={handleHour} />
                 </Col>
                 <Col>
                   <Form.Control type='date' placeholder="Task date" onChange={handleDate}/>
